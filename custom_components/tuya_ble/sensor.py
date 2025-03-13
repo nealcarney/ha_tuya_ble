@@ -20,6 +20,7 @@ from homeassistant.const import (
     UnitOfTemperature,
     UnitOfTime,
     UnitOfVolume,
+    UnitOfVolumeFlowRate,
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity import EntityCategory
@@ -106,6 +107,48 @@ class TuyaBLECategorySensorMapping:
 
 
 mapping: dict[str, TuyaBLECategorySensorMapping] = {
+    "slj": TuyaBLECategorySensorMapping(
+        products={
+            "mqqna0px": [  # RESTMO BT Water Meter
+                TuyaBLESensorMapping(
+                    dp_id=61,
+                    description=SensorEntityDescription(
+                        key="water_use_data",
+                        device_class=SensorDeviceClass.WATER,
+                        native_unit_of_measurement=UnitOfVolume.LITERS,
+                        state_class=SensorStateClass.TOTAL,
+                    ),
+                ),
+                TuyaBLESensorMapping(
+                    dp_id=62,
+                    description=SensorEntityDescription(
+                        key="water_once",
+                        device_class=SensorDeviceClass.WATER,
+                        native_unit_of_measurement=UnitOfVolume.LITERS,
+                        state_class=SensorStateClass.MEASUREMENT,
+                    ),
+                ),
+                TuyaBLESensorMapping(
+                    dp_id=63,
+                    description=SensorEntityDescription(
+                        key="voltage_current",
+                        device_class=SensorDeviceClass.WATER,
+                        native_unit_of_measurement=UnitOfVolume.LITERS,
+                        state_class=SensorStateClass.TOTAL,
+                    ),
+                ),
+                TuyaBLESensorMapping(
+                    dp_id=64,
+                    description=SensorEntityDescription(
+                        key="flow_velocity",
+                        device_class=SensorDeviceClass.VOLUME_FLOW_RATE,
+                        native_unit_of_measurement=UnitOfVolumeFlowRate.LITERS_PER_MINUTE,
+                        state_class=SensorStateClass.MEASUREMENT,
+                    ),
+                ),
+            ],
+        },
+    ),
     "co2bj": TuyaBLECategorySensorMapping(
         products={
             "59s19z5m": [  # CO2 Detector
